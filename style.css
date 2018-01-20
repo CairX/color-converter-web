@@ -1,0 +1,63 @@
+html, body {
+	padding: 0;
+	margin: 0;
+}
+body, input {
+	font: large/normal monospace;
+}
+body {
+	height: 100vh;
+
+	display: grid;
+	grid-template-rows: 3.5rem 1fr;
+}
+h1 {
+	font-size: 1.5rem;
+	font-weight: normal;
+	padding: 1rem;
+	margin: 0;
+}
+.converter {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+.converter section {
+	margin-bottom:1.5rem;
+	display: flex;
+	flex-direction: column;
+}
+.converter section:first-child {
+	margin-bottom: 3rem;
+}
+.converter label {
+	margin-bottom: 0.5rem;
+}
+.converter label::after {
+	content: ": ";
+}
+.converter input {
+	background: transparent;
+
+	border-width: 0 0 0.15rem 0;
+	border-style: solid;
+	border-color: rgb(0, 0, 0, 0.2);
+}
+
+@media (min-width: 32rem) {
+	.converter section {
+		flex-direction: row;
+	}
+	.converter label {
+		width: 3.5rem;
+		margin-bottom: 0;
+
+		border-width: 0 0 0.15rem 0;
+		border-style: solid;
+		border-color: rgb(0, 0, 0, 0.2);
+	}
+	.converter input {
+		width: 26ch;
+	}
+}
