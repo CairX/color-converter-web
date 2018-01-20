@@ -6,5 +6,25 @@
 	</head>
 	<body>
 		<h1>Color Converter</h1>
+		<input id="color" type="text" /><br />
+
+		HEX:   <input type="text" id="hex-36" /><br />
+		HEX-A: <input type="text" id="hex-48" /><br />
+		RGB:   <input type="text" id="rgb" /><br />
+		RGBA:  <input type="text" id="rgba" /><br />
+
+		<script src="color-utils.js"></script>
+		<script>
+			var colorElement = document.getElementById("color");
+			colorElement.addEventListener("input", function(event) {
+				var format = ColorUtils.format(event.target.value);
+
+				if (format != null) {
+					ColorUtils.formats.forEach(function(f) {
+						document.getElementById(f.id).value = f.string(format.raw);
+					});
+				}
+			});
+		</script>
 	</body>
 </html>
