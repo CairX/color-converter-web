@@ -14,19 +14,19 @@
 			</section>
 			<section  class="format">
 				<label for="hex-36">Hex</label>
-				<input type="text" id="hex-36" />
+				<input type="text" id="hex-36" placeholder="No value" />
 			</section>
 			<section  class="format">
 				<label for="hex-48">Hexa</label>
-				<input type="text" id="hex-48" />
+				<input type="text" id="hex-48" placeholder="No value" />
 			</section>
 			<section  class="format">
 				<label for="rgb">Rgb</label>
-				<input type="text" id="rgb" />
+				<input type="text" id="rgb" placeholder="No value" />
 			</section>
 			<section  class="format">
 				<label for="rgba">Rgba</label>
-				<input type="text" id="rgba" />
+				<input type="text" id="rgba" placeholder="No value" />
 			</section>
 		</article>
 
@@ -36,7 +36,11 @@
 			colorElement.addEventListener("input", function(event) {
 				var format = ColorUtils.format(event.target.value);
 
-				if (format != null) {
+				if (format == null) {
+					ColorUtils.formats.forEach(function(f) {
+						document.getElementById(f.id).value = "";
+					});
+				} else {
 					ColorUtils.formats.forEach(function(f) {
 						document.getElementById(f.id).value = f.string(format.raw);
 					});
