@@ -16,76 +16,93 @@ var ColorUtils = (function() {
 		return number;
 	};
 
+	// -------------------------------- //
+	// Internal format of:
+	// raw[ red, green, blue, alpha ]
+	// Normalized values (0 to 1).
+	// -------------------------------- //
 	self.formats = [
 		{
 			id: "rgb",
 			pattern: /rgb\((\d{1,3}),\s?(\d{1,3}),\s?(\d{1,3})\)/i,
 			weight: 0,
 			extract: function(string) {
-				var values = this.pattern.exec(string).map(Number);
-				return { red: values[1], green: values[2], blue: values[3], alpha: 255 };
+				var values = this.pattern.exec(string);
+				values.shift();
+				values = values.map(function(value) { return Number(value) / 255; });
+				values.push(1.0);
+				return values;
 			},
 			string: function(raw) {
-				return "rgb(" + raw.red + ", " + raw.green + ", " + raw.blue + ")";
+				raw = raw.slice(0, 3);
+				raw = raw.map(function(value) { return Math.round(value * 255); });
+				return "rgb(" + raw.join(", ") +  ")";
 			}
 		}, {
 			id: "rgba",
-			pattern: /rgba\((\d{1,3}),\s?(\d{1,3}),\s?(\d{1,3}),\s?([+-]?(\d*[.])?\d+)\)/i,
+			pattern: /rgba\((\d{1,3}),\s?(\d{1,3}),\s?(\d{1,3}),\s?([+-]?\d*[.]?\d+)\)/i,
 			weight: 1,
 			extract: function(string) {
-				var values = this.pattern.exec(string).map(Number);
-				return { red: values[1], green: values[2], blue: values[3], alpha: values[4] * 255 };
+				var values = this.pattern.exec(string);
+				values.shift();
+				values = values.map(Number);
+				var alpha = values.pop();
+				values = values.map(function(value) { return value / 255; });
+				values.push(alpha);
+				return values;
 			},
 			string: function(raw) {
-				return "rgba(" + raw.red + ", " + raw.green + ", " + raw.blue + ", " + (raw.alpha / 255).toFixed(3) + ")";
+				var colors = raw.slice(0, 3);
+				colors = colors.map(function(value) { return Math.round(value * 255); });
+				return "rgba(" + colors.join(", ") + ", " + raw[3].toFixed(3) + ")";
 			}
 		}, {
 			id: "hex-36",
-			pattern: /^#([0-9a-f]{3}|[0-9a-f]{6})$/im,
+			pattern: /^#([0-9a-f]{3}|[0-9a-f]{6})$/i,
 			weight: 0,
 			extract: function(string) {
 				var values = this.pattern.exec(string)[1];
 				if (values.length === 3) {
-					values = splitInterval(values, 1).map(function(value) {
-						return value + value;
-					});
+					values = splitInterval(values, 1);
+					values = values.map(function(value) { return value + value; });
 				} else if (values.length === 6) {
 					values = splitInterval(values, 2);
 				}
 				values = values.map(function(value) {
-					return parseInt(value, 16);
+					return Number.parseInt(value, 16) / 255;
 				});
-				return { red: values[0], green: values[1], blue: values[2], alpha: 255 };
+				values.push(1.0);
+				return values;
 			},
 			string: function(raw) {
-				Object.keys(raw).forEach(function(key) {
-					raw[key] = padding(raw[key].toString(16));
+				raw = raw.map(function(value) {
+					return padding(Math.round(value * 255).toString(16));
 				});
-				return "#" + raw.red + "" + raw.green + "" + raw.blue;
+				raw.pop();
+				return "#" + raw.join("");
 			}
 		}, {
 			id: "hex-48",
-			pattern: /^#([0-9a-f]{4}|[0-9a-f]{8})$/im,
+			pattern: /^#([0-9a-f]{4}|[0-9a-f]{8})$/i,
 			weight: 1,
 			extract: function(string) {
 				var values = this.pattern.exec(string)[1];
 				if (values.length === 4) {
-					values = splitInterval(values, 1).map(function(value) {
-						return value + value;
-					});
+					values = splitInterval(values, 1);
+					values = values.map(function(value) { return value + value; });
 				} else if (values.length === 8) {
 					values = splitInterval(values, 2);
 				}
 				values = values.map(function(value) {
-					return parseInt(value, 16);
+					return Number.parseInt(value, 16) / 255;
 				});
-				return { red: values[0], green: values[1], blue: values[2], alpha: values[3] };
+				return values;
 			},
 			string: function(raw) {
-				Object.keys(raw).forEach(function(key) {
-					raw[key] = padding(raw[key].toString(16));
+				raw = raw.map(function(value) {
+					return padding(Math.round(value * 255).toString(16));
 				});
-				return "#" + raw.red + "" + raw.green + "" + raw.blue + "" + raw.alpha;
+				return "#" + raw.join("");
 			}
 		}
 	];
