@@ -6,12 +6,28 @@
 	</head>
 	<body>
 		<h1>Color Converter</h1>
-		<input id="color" type="text" /><br />
 
-		HEX:   <input type="text" id="hex-36" /><br />
-		HEX-A: <input type="text" id="hex-48" /><br />
-		RGB:   <input type="text" id="rgb" /><br />
-		RGBA:  <input type="text" id="rgba" /><br />
+		<article class="converter">
+			<section>
+				<input id="color" type="text" />
+			</section>
+			<section  class="format">
+				<label for="hex-36">Hex</label>
+				<input type="text" id="hex-36" />
+			</section>
+			<section  class="format">
+				<label for="hex-48">Hexa</label>
+				<input type="text" id="hex-48" />
+			</section>
+			<section  class="format">
+				<label for="rgb">Rgb</label>
+				<input type="text" id="rgb" />
+			</section>
+			<section  class="format">
+				<label for="rgba">Rgba</label>
+				<input type="text" id="rgba" />
+			</section>
+		</article>
 
 		<script src="color-utils.js"></script>
 		<script>
