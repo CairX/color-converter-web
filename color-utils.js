@@ -61,11 +61,7 @@ var ColorUtils = (function() {
 				Object.keys(raw).forEach(function(key) {
 					raw[key] = padding(raw[key].toString(16));
 				});
-				var value = "#" + raw.red + "" + raw.green + "" + raw.blue;
-				if (raw.alpha !== "ff") {
-					value += raw.alpha;
-				}
-				return value;
+				return "#" + raw.red + "" + raw.green + "" + raw.blue;
 			}
 		}, {
 			id: "hex-48",
@@ -89,11 +85,7 @@ var ColorUtils = (function() {
 				Object.keys(raw).forEach(function(key) {
 					raw[key] = padding(raw[key].toString(16));
 				});
-				var value = "#" + raw.red + "" + raw.green + "" + raw.blue;
-				if (raw.alpha !== "ff") {
-					value += raw.alpha;
-				}
-				return value;
+				return "#" + raw.red + "" + raw.green + "" + raw.blue + "" + raw.alpha;
 			}
 		}
 	];
