@@ -4,7 +4,6 @@
 
 var ColorUtils = (function() {
 	var self = {};
-	var raw = {};
 
 	var splitInterval = function(string, interval) {
 		return string.toString().match(new RegExp(".{1," + interval + "}", "g"));
@@ -99,45 +98,6 @@ var ColorUtils = (function() {
 		}
 	];
 
-	raw.rangeEveryOther = function(length) {
-		length = length - 1;
-
-		var result = [];
-		var upper = Math.ceil(length / 2);
-		var lower = Math.floor(length / 2);
-
-		for (var i = 0; i <= upper; i++) {
-			result.push(i);
-
-			if (i < lower) {
-				result.push(length - i);
-			}
-		}
-		return result;
-	};
-
-	raw.lerpValue = function(start, end, blend) {
-		return Math.round((1 - blend) * start + blend * end);
-	};
-
-	raw.lerp = function(start, end, blend) {
-		return {
-			red: raw.lerpValue(start.red, end.red, blend),
-			green: raw.lerpValue(start.green, end.green, blend),
-			blue: raw.lerpValue(start.blue, end.blue, blend),
-			alpha: raw.lerpValue(start.alpha, end.alpha, blend)
-		};
-	};
-
-	raw.transition = function(start, end, steps) {
-		var colors = [];
-		var blend = 1 / (steps - 1);
-		for (var i = 0; i < steps; i++) {
-			colors.push(raw.lerp(start, end, blend * i));
-		}
-		return colors;
-	};
-
 	self.format = function(string) {
 		for (var i = 0; i < self.formats.length; i++) {
 			var format = self.formats[i];
@@ -146,60 +106,6 @@ var ColorUtils = (function() {
 			}
 		}
 		return null;
-	};
-
-	self.lerp = function(start, end, blend) {
-		start = self.format(start);
-		end = self.format(end);
-		var format = start.format.weight >= end.format.weight ? start.format : end.format;
-		return format.string(raw.lerp(start.raw, end.raw, blend));
-	};
-
-	self.transitions = function(colors, steps) {
-		if (steps < colors.length) {
-			return colors;
-		}
-
-		var result = [];
-		var pairs = [];
-
-		colors = colors.map(function(color) {
-			return self.format(color);
-		});
-
-		for (var i = 0; i < colors.length - 1; i++) {
-			pairs.push({ begin: colors[i].raw, end: colors[i + 1].raw, steps: 0 });
-		}
-
-		var everyOther = raw.rangeEveryOther(pairs.length);
-		for (var j = 0, len = steps + (colors.length - 2); j < len; j++) {
-			pairs[everyOther[j % pairs.length]].steps++;
-		}
-
-		pairs.forEach(function(pair, index) {
-			var transition = raw.transition(pair.begin, pair.end, pair.steps);
-			if (index > 0) {
-				transition = transition.slice(1);
-			}
-			Array.prototype.push.apply(result, transition);
-		});
-
-		var format = colors[0].format;
-		for (var k = 1; k < colors.length; k++) {
-			format = format.weight >= colors[k].format.weight ? format : colors[k].format;
-		}
-
-		return result.map(function(color) {
-			return format.string(color);
-		});
-	};
-
-	self.transition = function(start, end, steps) {
-		return self.transitions([start, end], steps);
-	};
-
-	self.loop = function(first, second, steps) {
-		return self.transitions([first, second, first], steps);
 	};
 
 	return self;
