@@ -17,7 +17,7 @@ var ColorUtils = (function() {
 		return number;
 	};
 
-	var formats = [
+	self.formats = [
 		{
 			id: "rgb",
 			pattern: /rgb\((\d{1,3}),\s?(\d{1,3}),\s?(\d{1,3})\)/i,
@@ -139,8 +139,8 @@ var ColorUtils = (function() {
 	};
 
 	self.format = function(string) {
-		for (var i = 0; i < formats.length; i++) {
-			var format = formats[i];
+		for (var i = 0; i < self.formats.length; i++) {
+			var format = self.formats[i];
 			if (format.pattern.test(string)) {
 				return { raw: format.extract(string), format: format };
 			}
