@@ -24,7 +24,7 @@ var ColorUtils = (function() {
 	self.formats = [
 		{
 			id: "rgb",
-			pattern: /rgb\((\d{1,3}),\s?(\d{1,3}),\s?(\d{1,3})\)/i,
+			pattern: /^rgb\((\d{1,3}),\s?(\d{1,3}),\s?(\d{1,3})\)$/i,
 			weight: 0,
 			extract: function(string) {
 				var values = this.pattern.exec(string);
