@@ -34,7 +34,9 @@
 		<script>
 			var colorElement = document.getElementById("color");
 			colorElement.addEventListener("input", function(event) {
-				var format = ColorUtils.format(event.target.value);
+				var value = event.target.value.trim();
+				var format = ColorUtils.format(value);
+
 
 				if (format == null) {
 					ColorUtils.formats.forEach(function(f) {
