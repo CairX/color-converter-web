@@ -57,6 +57,36 @@ var ColorUtils = (function() {
 				return "rgba(" + colors.join(", ") + ", " + raw[3].toFixed(3) + ")";
 			}
 		}, {
+			id: "rgb01",
+			pattern: /^([0][.]\d+|[.]\d+|[01]|[1][.][0]+),\s?([0][.]\d+|[.]\d+|[01]|[1][.][0]+),\s?([0][.]\d+|[.]\d+|[01]|[1][.][0]+)$/i,
+			weight: 0,
+			extract: function(string) {
+				var values = this.pattern.exec(string);
+				values.shift();
+				values = values.map(Number);
+				values.push(1.0);
+				return values;
+			},
+			string: function(raw) {
+				var colors = raw.slice(0, 3);
+				colors = colors.map(function(value) { return value.toFixed(3); });
+				return colors.join(", ");
+			}
+		}, {
+			id: "rgba01",
+			pattern: /^([0][.]\d+|[.]\d+|[01]|[1][.][0]+),\s?([0][.]\d+|[.]\d+|[01]|[1][.][0]+),\s?([0][.]\d+|[.]\d+|[01]|[1][.][0]+),\s?([0][.]\d+|[.]\d+|[01]|[1][.][0]+)$/i,
+			weight: 1,
+			extract: function(string) {
+				var values = this.pattern.exec(string);
+				values.shift();
+				values = values.map(Number);
+				return values;
+			},
+			string: function(raw) {
+				raw = raw.map(function(value) { return value.toFixed(3); });
+				return raw.join(", ");
+			}
+		}, {
 			id: "hex-36",
 			pattern: /^#([0-9a-f]{3}|[0-9a-f]{6})$/i,
 			weight: 0,
