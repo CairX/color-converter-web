@@ -40,7 +40,7 @@ var ColorUtils = (function() {
 			}
 		}, {
 			id: "rgba",
-			pattern: /rgba\((\d{1,3}),\s?(\d{1,3}),\s?(\d{1,3}),\s?([+-]?\d*[.]?\d+)\)/i,
+			pattern: /^rgba\((\d{1,3}),\s?(\d{1,3}),\s?(\d{1,3}),\s?([0][.]\d+|[.]\d+|[01]|[1][.][0]+)\)$/i,
 			weight: 1,
 			extract: function(string) {
 				var values = this.pattern.exec(string);
