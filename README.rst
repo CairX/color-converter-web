@@ -39,8 +39,11 @@ Hexadecimal Notation
 |                  | **Note**: Supported as input but not output.              |
 +------------------+-----------------------------------------------------------+
 
-Functional Notation - W3C CSS
+Functional Notation
 =================================================
+Notation is based on the standard defined by `W3C Color Module <https://www.w3.org/TR/css-color-3/#rgb-color>`_.
+Not all variations are implemented for the input but the output format will be a valid format according to the standards.
+
 +------------------+-----------------------------------------------------------+
 | Notation         | Description                                               |
 +===========+======+===========================================================+
@@ -50,4 +53,20 @@ Functional Notation - W3C CSS
 | rgba(R, G, B, A) | Same as ``rgb()`` but with an additional value that       |
 |                  | represents ``Alpha``.                                     |
 |                  | The alpha value is a decimal number between 0 and 1.      |
++------------------+-----------------------------------------------------------+
+
+Float Notation
+=================================================
+Notation is based on vectors that define colors using float values.
+An example would be the ``vec3`` and ``vec4`` data type specified by `GLSL <https://www.khronos.org/opengl/wiki/Data_Type_(GLSL)>`_.
+
++------------------+-----------------------------------------------------------+
+| Notation         | Description                                               |
++===========+======+===========================================================+
+| R, G, B          | Each value ``R(ed)``, ``G(reen)`` and ``B(lue)``          |
+|                  | is a float between 0 and 1.                               |
++------------------+-----------------------------------------------------------+
+| R, G, B, A       | Same as ``R, G, B`` but with an additional value that     |
+|                  | represents ``Alpha``.                                     |
+|                  | The alpha value uses the same format as the colors.       |
 +------------------+-----------------------------------------------------------+
