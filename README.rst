@@ -2,3 +2,52 @@
 Color Converter
 *************************************************
 A website that converts between different color formats.
+
+=================================================
+Color Formats
+=================================================
+Following formats are supported as both input and output, unless otherwise specified.
+
+Hexadecimal Notation
+=================================================
++------------------+-----------------------------------------------------------+
+| Notation         | Description                                               |
++==================+===========================================================+
+| #RRGGBB          | Each pair of ``R(ed)``, ``G(reen)`` and ``B(lue)``        |
+|                  | is an integer between 0 and 255 in base 16.               |
+|                  | Values are given as pairs, therefore single digit values  |
+|                  | need to be padded with a leading zero.                    |
+|                  |                                                           |
+|                  | **Examples**, decimal values to the left and their        |
+|                  | hexadecimal translation to the right: ``255 = FF``,       |
+|                  | ``0 = 00`` and ``10 = 0A``.                               |
++------------------+-----------------------------------------------------------+
+| #RRGGBBAA        | Same as ``#RRGGBB`` but with an additional pair           |
+|                  | representing ``Alpha``.                                   |
+|                  | Alpha follows the same convention as the color values.    |
++------------------+-----------------------------------------------------------+
+| #RGB             | Shorter version of ``#RRGGBB`` where each values is       |
+|                  | expanded.                                                 |
+|                  |                                                           |
+|                  | **Example**: ``#B03`` is equal to ``#BB0033``.            |
+|                  | **Note**: Supported as input but not output.              |
++------------------+-----------------------------------------------------------+
+| #RGBA            | Shorter version of ``#RRGGBBAA`` where each values is     |
+|                  | expanded.                                                 |
+|                  |                                                           |
+|                  | **Example**: ``#9F08`` is equal to ``#99FF0088``.         |
+|                  | **Note**: Supported as input but not output.              |
++------------------+-----------------------------------------------------------+
+
+Functional Notation - W3C CSS
+=================================================
++------------------+-----------------------------------------------------------+
+| Notation         | Description                                               |
++===========+======+===========================================================+
+| rgb(R, G, B)     | Each value ``R(ed)``, ``G(reen)`` and ``B(lue)``          |
+|                  | is an integer between 0 and 255.                          |
++------------------+-----------------------------------------------------------+
+| rgba(R, G, B, A) | Same as ``rgb()`` but with an additional value that       |
+|                  | represents ``Alpha``.                                     |
+|                  | The alpha value is a decimal number between 0 and 1.      |
++------------------+-----------------------------------------------------------+
