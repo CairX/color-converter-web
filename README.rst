@@ -3,7 +3,9 @@ Color Converter
 *************************************************
 A website that converts between different color formats.
 
-.. image:: documentation/screenshot-20180122.png
+.. image:: documentation/screenshot-20180122-enter.png
+
+.. image:: documentation/screenshot-20180122-usage.png
 
 =================================================
 Color Formats
